@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrugerhåndteringMikroservice", "BrugerhåndteringMikroservice\BrugerhåndteringMikroservice.csproj", "{961A1104-CC41-47F9-9956-AE76BF0218DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VagtplanlægningsMikroservice", "VagtplanlægningsMikroservice\VagtplanlægningsMikroservice.csproj", "{CACB3861-2BF8-436D-820D-BAA41AE5ABC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkiftbytteMikroservice", "SkiftbytteMikroservice\SkiftbytteMikroservice.csproj", "{BC61435C-AB58-4905-8B3F-CBC887C63097}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tilgængeligheds Mikroservice", "Tilgængeligheds Mikroservice\Tilgængeligheds Mikroservice.csproj", "{69DBB399-1B53-4D1A-999B-DECB8BEB681A}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "TidsregistreringsMikroservice", "TidsregistreringsMikroservice\TidsregistreringsMikroservice.pyproj", "{B945C16F-42C8-4D37-8CA5-687200C7945A}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RapporteringsMikroservice", "RapporteringsMikroservice\RapporteringsMikroservice.pyproj", "{63C3967C-B68D-4F55-883D-A72B1BDB5479}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NotifikationsMikroservice", "NotifikationsMikroservice\NotifikationsMikroservice.pyproj", "{1120068A-A295-446E-BA2E-FC120B3330FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{961A1104-CC41-47F9-9956-AE76BF0218DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{961A1104-CC41-47F9-9956-AE76BF0218DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{961A1104-CC41-47F9-9956-AE76BF0218DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{961A1104-CC41-47F9-9956-AE76BF0218DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CACB3861-2BF8-436D-820D-BAA41AE5ABC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACB3861-2BF8-436D-820D-BAA41AE5ABC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACB3861-2BF8-436D-820D-BAA41AE5ABC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACB3861-2BF8-436D-820D-BAA41AE5ABC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC61435C-AB58-4905-8B3F-CBC887C63097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC61435C-AB58-4905-8B3F-CBC887C63097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC61435C-AB58-4905-8B3F-CBC887C63097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC61435C-AB58-4905-8B3F-CBC887C63097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69DBB399-1B53-4D1A-999B-DECB8BEB681A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69DBB399-1B53-4D1A-999B-DECB8BEB681A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69DBB399-1B53-4D1A-999B-DECB8BEB681A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69DBB399-1B53-4D1A-999B-DECB8BEB681A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B945C16F-42C8-4D37-8CA5-687200C7945A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B945C16F-42C8-4D37-8CA5-687200C7945A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C3967C-B68D-4F55-883D-A72B1BDB5479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C3967C-B68D-4F55-883D-A72B1BDB5479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1120068A-A295-446E-BA2E-FC120B3330FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1120068A-A295-446E-BA2E-FC120B3330FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BD1184C-3D7A-4DFA-A1B3-B278BBFF9FBF}
+	EndGlobalSection
+EndGlobal
