@@ -1,4 +1,4 @@
-namespace VagtplanlægningsMikroservice
+namespace ShiftScheduleService
 {
     public class WeatherForecast
     {

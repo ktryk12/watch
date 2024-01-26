@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>63c3967c-b68d-4f55-883d-a72b1bdb5479</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>RapporteringsMikroservice.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>ReportingMicroservice.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>RapporteringsMikroservice</Name>
+    <Name>ReportingMicroservice</Name>
     <RootNamespace>RapporteringsMikroservice</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -21,7 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="RapporteringsMikroservice.py" />
+    <Compile Include="Models\Report.py" />
+    <Compile Include="ReportingMicroservice.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="routes\" />
+    <Folder Include="services\" />
+    <Folder Include="tests\" />
+    <Folder Include="utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="__init__.py %28ReportingMicroservice%29" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

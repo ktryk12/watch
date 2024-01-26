@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using ShiftChangeMicroservice;
 
-namespace SkiftbytteMikroservice.Controllers
+namespace ShiftChangeMicroservice.Controllers
 {
     [ApiController]
     [Route("[controller]")]

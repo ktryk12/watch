@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>1120068a-a295-446e-ba2e-fc120b3330fa</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>NotifikationsMikroservice.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>NotificationMicroservice.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>NotifikationsMikroservice</Name>
+    <Name>NotificationMicroservice</Name>
     <RootNamespace>NotifikationsMikroservice</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -21,7 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="NotifikationsMikroservice.py" />
+    <Compile Include="Models\Notification.py" />
+    <Compile Include="NotificationMicroservice.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="routes\" />
+    <Folder Include="services\" />
+    <Folder Include="tests\" />
+    <Folder Include="utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="__init__.py %28NotificationMicroservice%29" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

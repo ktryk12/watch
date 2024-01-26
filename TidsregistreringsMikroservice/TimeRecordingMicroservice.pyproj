@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b945c16f-42c8-4d37-8ca5-687200c7945a</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>TidsregistreringsMikroservice.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>TimeRecordingMicroservice.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>TidsregistreringsMikroservice</Name>
+    <Name>TimeRecordingMicroservice</Name>
     <RootNamespace>TidsregistreringsMikroservice</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -21,7 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TidsregistreringsMikroservice.py" />
+    <Compile Include="Models\TimeRecord.py" />
+    <Compile Include="TimeRecordingMicroservice.py" />
+    <Compile Include="__init__.py %28TimeRecordingMicroservice%29">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="tests\" />
+    <Folder Include="utils\" />
+    <Folder Include="routes\" />
+    <Folder Include="services\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

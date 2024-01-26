@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BrugerhåndteringMikroservice.Controllers
+namespace UserMicroservice.Controllers
 {
     [ApiController]
     [Route("[controller]")]

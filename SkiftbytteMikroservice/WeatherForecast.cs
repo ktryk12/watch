@@ -1,4 +1,4 @@
-namespace SkiftbytteMikroservice
+namespace ShiftChangeMicroservice
 {
     public class WeatherForecast
     {

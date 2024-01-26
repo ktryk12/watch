@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace VagtplanlægningsMikroservice.Controllers
+namespace ShiftScheduleService.Controllers
 {
     [ApiController]
     [Route("[controller]")]

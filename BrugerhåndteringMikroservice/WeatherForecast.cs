@@ -1,4 +1,4 @@
-namespace BrugerhåndteringMikroservice
+namespace UserMicroservice
 {
     public class WeatherForecast
     {
