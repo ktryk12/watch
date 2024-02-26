@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace ShiftScheduleService.Modellayer
+namespace ShiftScheduleMicroService.Modellayer
 {
     public class ServiceContext : DbContext, IServiceContext
     {

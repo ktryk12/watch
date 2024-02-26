@@ -1,4 +1,6 @@
-﻿namespace ShiftScheduleService.Modellayer
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ShiftScheduleMicroService.Modellayer
 {
    public class ShiftSchedule
    {
@@ -7,10 +9,12 @@
             public DateTime StartTime { get; set; }
             public DateTime EndTime { get; set; }
             public TimeSpan BreakTime { get; set; } // Assuming 'pausetid' refers to break time during the shift
-            public int EmployeeId { get; set; } // Reference to an employee
+            [Required]
+            [StringLength(4, MinimumLength = 4)] 
+            public string EmployeeId { get; set; }
             public ShiftStatus Status { get; set; } // Using the ShiftStatus enum
 
-            // Additional properties and methods as needed
+           
    }
 
   

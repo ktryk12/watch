@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 
-namespace ShiftScheduleService.Modellayer
+namespace ShiftScheduleMicroService.Modellayer
 {
     public interface IServiceContext
     {

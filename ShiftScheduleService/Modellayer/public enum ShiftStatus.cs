@@ -1,4 +1,4 @@
-﻿namespace ShiftScheduleService.Modellayer
+﻿namespace ShiftScheduleMicroService.Modellayer
 {
     public enum ShiftStatus
     {

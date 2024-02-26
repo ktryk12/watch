@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["VagtplanlægningsMikroservice/VagtplanlægningsMikroservice.csproj", "VagtplanlægningsMikroservice/"]
-RUN dotnet restore "VagtplanlægningsMikroservice/VagtplanlægningsMikroservice.csproj"
+COPY ["ShiftScheduleService/ShiftScheduleService.csproj", "ShiftScheduleService/"]
+RUN dotnet restore "ShiftScheduleService/ShiftScheduleService.csproj"
 COPY . .
-WORKDIR "/src/VagtplanlægningsMikroservice"
-RUN dotnet build "VagtplanlægningsMikroservice.csproj" -c Release -o /app/build
+WORKDIR "/src/ShiftScheduleService"
+RUN dotnet build "ShiftScheduleService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "VagtplanlægningsMikroservice.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ShiftScheduleService.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "VagtplanlægningsMikroservice.dll"]
+ENTRYPOINT ["dotnet", "ShiftScheduleService.dll"]
