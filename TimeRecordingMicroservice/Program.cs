@@ -32,6 +32,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// Tilføj CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:49167", "http://localhost:57225") // Erstat med den korrekte origin for din Flutter-app
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Tilføj controllers
 builder.Services.AddControllers();
 
@@ -78,6 +89,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("MyCorsPolicy");
 
 app.UseAuthentication(); // Sørg for at tilføje denne linje for at aktivere JWT Bearer Authentication
 app.UseAuthorization();
