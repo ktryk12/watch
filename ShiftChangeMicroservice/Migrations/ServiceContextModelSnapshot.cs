@@ -32,8 +32,10 @@ namespace ShiftChangeMicroservice.Migrations
                     b.Property<int>("DesiredShiftId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<string>("Reason")
                         .IsRequired()

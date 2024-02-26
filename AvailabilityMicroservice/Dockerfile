@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Tilgængeligheds Mikroservice/Tilgængeligheds Mikroservice.csproj", "Tilgængeligheds Mikroservice/"]
-RUN dotnet restore "Tilgængeligheds Mikroservice/Tilgængeligheds Mikroservice.csproj"
+COPY ["AvailabilityMicroservice/AvailabilityMicroservice.csproj", "AvailabilityMicroservice/"]
+RUN dotnet restore "AvailabilityMicroservice/AvailabilityMicroservice.csproj"
 COPY . .
-WORKDIR "/src/Tilgængeligheds Mikroservice"
-RUN dotnet build "Tilgængeligheds Mikroservice.csproj" -c Release -o /app/build
+WORKDIR "/src/AvailabilityMicroservice"
+RUN dotnet build "AvailabilityMicroservice.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Tilgængeligheds Mikroservice.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "AvailabilityMicroservice.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Tilgængeligheds Mikroservice.dll"]
+ENTRYPOINT ["dotnet", "AvailabilityMicroservice.dll"]

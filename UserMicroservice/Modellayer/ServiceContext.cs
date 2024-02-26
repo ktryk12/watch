@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace UserMicroservice.Modellayer
+namespace UserMicroservice.ModelLayer
 {
     public class ServiceContext : DbContext, IServiceContext
     {
@@ -20,8 +20,8 @@ namespace UserMicroservice.Modellayer
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseLoggerFactory(_loggerFactory)
-                    .UseSqlServer("Server=localhost;Database=UserService;User Id=sa;Password=Sommer2023;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
+                    .UseLoggerFactory(_loggerFactory);
+                    
             }
         }
 

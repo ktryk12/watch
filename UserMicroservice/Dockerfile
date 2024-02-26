@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["BrugerhåndteringMikroservice/BrugerhåndteringMikroservice.csproj", "BrugerhåndteringMikroservice/"]
-RUN dotnet restore "BrugerhåndteringMikroservice/BrugerhåndteringMikroservice.csproj"
+COPY ["UserMicroservice/UserMicroservice.csproj", "UserMicroservice/"]
+RUN dotnet restore "UserMicroservice/UserMicroservice.csproj"
 COPY . .
-WORKDIR "/src/BrugerhåndteringMikroservice"
-RUN dotnet build "BrugerhåndteringMikroservice.csproj" -c Release -o /app/build
+WORKDIR "/src/UserMicroservice"
+RUN dotnet build "UserMicroservice.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "BrugerhåndteringMikroservice.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "UserMicroservice.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "BrugerhåndteringMikroservice.dll"]
+ENTRYPOINT ["dotnet", "UserMicroservice.dll"]

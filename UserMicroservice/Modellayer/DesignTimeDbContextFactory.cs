@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Logging;
 
-namespace UserMicroservice.Modellayer
+namespace UserMicroservice.ModelLayer
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ServiceContext>
     {

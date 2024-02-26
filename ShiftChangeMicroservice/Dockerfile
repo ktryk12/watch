@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["SkiftbytteMikroservice/SkiftbytteMikroservice.csproj", "SkiftbytteMikroservice/"]
-RUN dotnet restore "SkiftbytteMikroservice/SkiftbytteMikroservice.csproj"
+COPY ["ShiftChangeMicroservice/ShiftChangeMicroservice.csproj", "ShiftChangeMicroservice/"]
+RUN dotnet restore "ShiftChangeMicroservice/ShiftChangeMicroservice.csproj"
 COPY . .
-WORKDIR "/src/SkiftbytteMikroservice"
-RUN dotnet build "SkiftbytteMikroservice.csproj" -c Release -o /app/build
+WORKDIR "/src/ShiftChangeMicroservice"
+RUN dotnet build "ShiftChangeMicroservice.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "SkiftbytteMikroservice.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ShiftChangeMicroservice.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SkiftbytteMikroservice.dll"]
+ENTRYPOINT ["dotnet", "ShiftChangeMicroservice.dll"]

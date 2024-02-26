@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace AccessibleMicroservicee.Modellayer
+namespace AvailabilityMicroservice.Modellayer
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ServiceContext>
     {

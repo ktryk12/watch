@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 
 
-namespace AccessibleMicroservicee.Modellayer
+namespace AvailabilityMicroservice.Modellayer
 {
     public class ServiceContext : DbContext, IServiceContext
     {
@@ -29,9 +29,8 @@ namespace AccessibleMicroservicee.Modellayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Availability>()
-                .HasKey(a => new { a.EmployeeId, a.AvailableDate, a.AvailableTime });
+    .HasKey(a => new { a.EmployeeId, a.AvailableDate, a.AvailableTime });
 
-            // Andre model konfigurationer...
         }
 
     }

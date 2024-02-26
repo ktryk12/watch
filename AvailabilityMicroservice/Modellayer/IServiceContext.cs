@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace AccessibleMicroservicee.Modellayer
+namespace AvailabilityMicroservice.Modellayer
 {
     public interface IServiceContext
     {
