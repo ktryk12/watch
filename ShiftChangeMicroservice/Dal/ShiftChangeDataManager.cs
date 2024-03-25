@@ -26,6 +26,12 @@ namespace ShiftChangeMicroservice.Dal
         {
             return await _context.ShiftChangeRequest.FindAsync(id);
         }
+        public async Task<IEnumerable<ShiftChangeRequest>> GetShiftChangeRequestByEmployeeIdAsync(string employeeId)
+        {
+            return await _context.ShiftChangeRequest
+                                 .Where(s => s.EmployeeId == employeeId)
+                                 .ToListAsync();
+        }
 
         public async Task<IEnumerable<ShiftChangeRequest>> GetAllShiftChangeRequestsAsync()
         {

@@ -1,4 +1,5 @@
-﻿using Notification_Microservice.Dal;
+﻿using Microsoft.EntityFrameworkCore;
+using Notification_Microservice.Dal;
 using Notification_Microservice.Dto;
 using Notification_Microservice.DtoConverter;
 using Notification_Microservice.Modellayer;
@@ -28,13 +29,17 @@ namespace Notification_Microservice.Serviceslag
             var notification = await _notificationData.GetNotificationByIdAsync(notificationId);
             return notification != null ? NotificationConverter.ToDto(notification) : null;
         }
-
-        public async Task CreateNotificationAsync(NotificationDto notificationDto)
+        public async Task<IEnumerable<NotificationDto>> GetNotificationByEmployeeIdAsync(string employeeId)
         {
-            var notification = NotificationConverter.FromDtoForCreation(notificationDto);
-            await _notificationData.AddNotificationAsync(notification);
+            var Notifications = await _notificationData.GetNotificationByEmployeeIdAsync(employeeId);
+            return Notifications.Select(NotificationConverter.ToDto);
         }
-
+        public async Task<int> CreateNotificationAsync(CreateNotificationDto createNotificationDto)
+        {
+            var notification = NotificationConverter.ToEntityForCreation(createNotificationDto);
+            var addedNotification = await _notificationData.AddNotificationAsync(notification);
+            return addedNotification.NotificationId; // Du kan nu returnere ID'et sikkert.
+        }
         public async Task UpdateNotificationAsync(int notificationId, NotificationDto notificationDto)
         {
             var notification = await _notificationData.GetNotificationByIdAsync(notificationId);

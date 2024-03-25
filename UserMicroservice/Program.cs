@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +9,10 @@ using UserMicroservice.Dal;
 using UserMicroservice.ModelLayer;
 using UserMicroservice.SecurityServices;
 using UserMicroservice.ServiceLayer;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 
+IdentityModelEventSource.ShowPII = true;
 var builder = WebApplication.CreateBuilder(args);
 
 // Tilføj DbContext til containeren
@@ -33,9 +37,46 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"])),
             ValidateIssuer = false,
             ValidateAudience = false,
-            ClockSkew = TimeSpan.Zero // Reducer tidsforskydning til nul
+            ClockSkew = TimeSpan.Zero
+        };
+
+
+        // Logging the token validation process
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = context =>
+            {
+                // This is triggered once the token has been validated
+                builder.Configuration.GetSection("Logging").GetSection("LogLevel").GetSection("Microsoft").Value = "Debug";
+                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+                logger.LogInformation("Token validated for user {User}", context.Principal.Identity.Name);
+                return Task.CompletedTask;
+            },
+            OnAuthenticationFailed = context =>
+            {
+                // This is triggered if authentication fails
+                builder.Configuration.GetSection("Logging").GetSection("LogLevel").GetSection("Microsoft").Value = "Debug";
+                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+                logger.LogError("Authentication failed: {Exception}", context.Exception.ToString());
+                return Task.CompletedTask;
+            },
+            OnChallenge = context =>
+            {
+                // This is triggered if the user challenges the authentication, e.g., no token provided
+                if (!context.Response.HasStarted)
+                {
+                    builder.Configuration.GetSection("Logging").GetSection("LogLevel").GetSection("Microsoft").Value = "Debug";
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+                    logger.LogWarning("OnChallenge error: {Error}", context.Error, context.ErrorDescription);
+                    context.Response.StatusCode = 401;
+                    context.HandleResponse(); // Suppress the default behavior
+                }
+
+                return Task.CompletedTask;
+            }
         };
     });
+;
 // Tilføj CORS policy
 builder.Services.AddCors(options =>
 {
@@ -56,11 +97,12 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "User Microservice API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        In = ParameterLocation.Header,
-        Description = "Please enter token",
+        Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
@@ -72,15 +114,15 @@ builder.Services.AddSwaggerGen(c =>
                     Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
                 },
-                Scheme = "oauth2",
-                Name = "Bearer",
-                In = ParameterLocation.Header,
-
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header
             },
             new List<string>()
         }
     });
 });
+
 
 var app = builder.Build();
 

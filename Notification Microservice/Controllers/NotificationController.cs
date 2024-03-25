@@ -37,18 +37,32 @@ namespace Notification_Microservice.Controllers
             }
             return Ok(notification);
         }
+        [HttpGet("employee/{employeeId}")]
+        [Authorize(Roles = "Admin,Medarbejder")] // Juster roller efter behov. Måske kun den specifikke medarbejder og Admin kan se disse.
+        public async Task<IActionResult> GetNotificationsByEmployeeId(string employeeId)
+        {
+            var notifications = await _notificationService.GetNotificationByEmployeeIdAsync(employeeId);
+            return Ok(notifications);
+        }
 
+
+       
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreateNotification([FromBody] NotificationDto notificationDto)
+        [Authorize(Roles = "Admin,Medarbejder")] // Tillad både Admin og Employee roller at oprette notifikationer.
+        public async Task<IActionResult> CreateNotification([FromBody] CreateNotificationDto createNotificationDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            await _notificationService.CreateNotificationAsync(notificationDto);
-            return CreatedAtAction(nameof(GetNotificationById), new { notificationId = notificationDto.NotificationId }, notificationDto);
+            var notificationId = await _notificationService.CreateNotificationAsync(createNotificationDto);
+
+            // Du kan ikke direkte tilgå NotificationId på en int værdi. I stedet skal du returnere ID'et som en del af responsen.
+            // Opretter et anonymt objekt med notificationId for responsen
+            return CreatedAtAction(nameof(GetNotificationById), new { notificationId = notificationId }, new { notificationId });
         }
+
+
 
         [HttpPut("{notificationId}")]
         [Authorize]

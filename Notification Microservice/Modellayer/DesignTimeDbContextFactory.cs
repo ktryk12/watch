@@ -10,7 +10,7 @@ namespace Notification_Microservice.Modellayer
         public ServiceContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ServiceContext>();
-            optionsBuilder.UseSqlServer("Server=localhost;Database=NotificationService;User Id=sa;Password=Sommer2023;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=NotificationService;Integrated Security=True;TrustServerCertificate=true;");
 
             return new ServiceContext(optionsBuilder.Options, null);
         }

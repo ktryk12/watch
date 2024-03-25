@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ShiftChangeMicroservice.DtoConverter;
+using ShiftChangeMicroservice.Modellayer;
 
 namespace ShiftChangeMicroservice.Serviceslag
 {
@@ -27,10 +28,15 @@ namespace ShiftChangeMicroservice.Serviceslag
             var shiftChangeRequest = await _shiftChangeData.GetShiftChangeRequestByIdAsync(id);
             return shiftChangeRequest != null ? ShiftChangeRequestConverter.ToDto(shiftChangeRequest) : null;
         }
-
-        public async Task<ShiftChangeRequestDto> CreateShiftChangeRequestAsync(ShiftChangeRequestDto shiftChangeRequestDto)
+        public async Task<IEnumerable<ShiftChangeRequestDto>> GetShiftChangeRequestByEmployeeIdAsync(string employeeId)
         {
-            var shiftChangeRequest = ShiftChangeRequestConverter.ToEntityForCreation(shiftChangeRequestDto);
+            var shiftChangeRequests = await _shiftChangeData.GetShiftChangeRequestByEmployeeIdAsync(employeeId);
+            return shiftChangeRequests.Select(ShiftChangeRequestConverter.ToDto);
+        }
+
+        public async Task<ShiftChangeRequestDto> CreateShiftChangeRequestAsync(CreateShiftChangeRequestDto createShiftChangeRequestDto)
+        {
+            var shiftChangeRequest = ShiftChangeRequestConverter.ToEntityForCreation(createShiftChangeRequestDto);
             var createdShiftChangeRequest = await _shiftChangeData.AddShiftChangeRequestAsync(shiftChangeRequest);
             return ShiftChangeRequestConverter.ToDto(createdShiftChangeRequest);
         }

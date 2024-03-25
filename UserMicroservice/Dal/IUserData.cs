@@ -8,7 +8,7 @@ namespace UserMicroservice.Dal
         Task<IEnumerable<User>> GetAllAsync();
         Task<User> GetByIdAsync(int id);
         Task UpdateAsync(User user);
-        Task<User> GetByUsernameAsync(string username);
+        Task<User> GetByEmployeeIdAsync(string employeeId);
         Task DeleteAsync(int id);
     }
 }

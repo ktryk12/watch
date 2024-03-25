@@ -21,7 +21,7 @@ namespace ShiftScheduleMicroService.Modellayer
             {
                 optionsBuilder
                     .UseLoggerFactory(_loggerFactory)
-                    .UseSqlServer("Server=localhost;Database=ShiftScheduleService;User Id=sa;Password=Sommer2023;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
+                    .UseSqlServer("Server=localhost;Database=ShiftScheduleService;Integrated Security=True;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
             }
         }
 

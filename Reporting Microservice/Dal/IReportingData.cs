@@ -8,7 +8,8 @@ namespace Reporting_Microservice.Dal
     {
         Task<IEnumerable<Reporting>> GetAllReportsAsync();
         Task<Reporting> GetReportByIdAsync(int reportId);
-        Task AddReportAsync(Reporting report);
+        Task<IEnumerable<Reporting>> GetReportingByEmployeeIdAsync(string employeeId);
+        Task<Reporting> AddReportAsync(Reporting report);
         Task UpdateReportAsync(Reporting report);
         Task DeleteReportAsync(int reportId);
     }

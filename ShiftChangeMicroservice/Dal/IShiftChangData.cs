@@ -8,6 +8,7 @@ namespace ShiftChangeMicroservice.Dal
     {
         Task<ShiftChangeRequest> AddShiftChangeRequestAsync(ShiftChangeRequest shiftChangeRequest);
         Task<ShiftChangeRequest> GetShiftChangeRequestByIdAsync(int id);
+        Task<IEnumerable<ShiftChangeRequest>> GetShiftChangeRequestByEmployeeIdAsync(string employeeId);
         Task<IEnumerable<ShiftChangeRequest>> GetAllShiftChangeRequestsAsync();
         Task<ShiftChangeRequest> UpdateShiftChangeRequestAsync(ShiftChangeRequest shiftChangeRequest);
         Task<bool> DeleteShiftChangeRequestAsync(int id);

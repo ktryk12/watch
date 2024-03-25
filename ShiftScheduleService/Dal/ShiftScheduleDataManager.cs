@@ -42,6 +42,12 @@ namespace ShiftScheduleMicroService.Dal
             }
             return existingShift;
         }
+        public async Task<IEnumerable<ShiftSchedule>> GetShiftSchedulesByEmployeeIdAsync(string employeeId)
+        {
+            return await _context.ShiftSchedule
+                                 .Where(s => s.EmployeeId == employeeId)
+                                 .ToListAsync();
+        }
 
         public async Task<bool> DeleteShiftScheduleAsync(int id)
         {

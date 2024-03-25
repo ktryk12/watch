@@ -8,7 +8,8 @@ namespace Notification_Microservice.Serviceslag
     {
         Task<IEnumerable<NotificationDto>> GetAllNotificationsAsync();
         Task<NotificationDto> GetNotificationByIdAsync(int notificationId);
-        Task CreateNotificationAsync(NotificationDto notificationDto);
+        Task<IEnumerable<NotificationDto>> GetNotificationByEmployeeIdAsync(string employeeId);
+        Task<int> CreateNotificationAsync(CreateNotificationDto createNotificationDto);
         Task UpdateNotificationAsync(int notificationId, NotificationDto notificationDto);
         Task DeleteNotificationAsync(int notificationId);
     }

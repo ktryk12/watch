@@ -2,14 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ShiftScheduleMicroService.Dto;
 using ShiftScheduleMicroService.Serviceslag;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShiftScheduleMicroService.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Route("api/[controller]")]
     public class ShiftScheduleController : ControllerBase
     {
         private readonly IShiftScheduleService _shiftScheduleService;
@@ -21,9 +20,17 @@ namespace ShiftScheduleMicroService.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<ShiftScheduleDto>> AddShiftSchedule([FromBody] ShiftScheduleDto shiftScheduleDto)
+        public async Task<ActionResult<ShiftScheduleDto>> AddShiftSchedule([FromBody] CreateShiftScheduleDto createShiftScheduleDto)
         {
-            var createdShiftSchedule = await _shiftScheduleService.AddShiftScheduleAsync(shiftScheduleDto);
+            var employeeId = User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")?.Value;
+
+            var createdShiftSchedule = await _shiftScheduleService.AddShiftScheduleAsync(createShiftScheduleDto);
+
+            if (createdShiftSchedule == null)
+            {
+                return BadRequest("Unable to add shift schedule");
+            }
+
             return CreatedAtAction(nameof(GetShiftScheduleById), new { id = createdShiftSchedule.Id }, createdShiftSchedule);
         }
 
@@ -32,19 +39,29 @@ namespace ShiftScheduleMicroService.Controllers
         public async Task<ActionResult<ShiftScheduleDto>> GetShiftScheduleById(int id)
         {
             var shiftSchedule = await _shiftScheduleService.GetShiftScheduleByIdAsync(id);
+
             if (shiftSchedule == null)
             {
                 return NotFound();
             }
+
             return Ok(shiftSchedule);
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<ShiftScheduleDto>>> GetAllShiftSchedules()
         {
-            var shiftSchedules = await _shiftScheduleService.GetAllShiftSchedulesAsync();
-            return Ok(shiftSchedules);
+            var schedules = await _shiftScheduleService.GetAllShiftSchedulesAsync();
+            return Ok(schedules);
+        }
+
+        [HttpGet("employee/{employeeId}")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<ShiftScheduleDto>>> GetShiftSchedulesByEmployeeId(string employeeId)
+        {
+            var schedules = await _shiftScheduleService.GetShiftSchedulesByEmployeeIdAsync(employeeId);
+            return Ok(schedules);
         }
 
         [HttpPut("{id}")]
@@ -56,24 +73,34 @@ namespace ShiftScheduleMicroService.Controllers
                 return BadRequest("ID mismatch");
             }
 
-            var updatedShiftSchedule = await _shiftScheduleService.UpdateShiftScheduleAsync(shiftScheduleDto);
-            if (updatedShiftSchedule == null)
+            try
             {
-                return NotFound();
+                var updatedShiftSchedule = await _shiftScheduleService.UpdateShiftScheduleAsync(shiftScheduleDto);
+                return Ok(updatedShiftSchedule);
             }
-            return Ok(updatedShiftSchedule);
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeleteShiftSchedule(int id)
         {
-            var success = await _shiftScheduleService.DeleteShiftScheduleAsync(id);
-            if (!success)
+            try
             {
-                return NotFound();
+                var success = await _shiftScheduleService.DeleteShiftScheduleAsync(id);
+                if (!success)
+                {
+                    return NotFound();
+                }
+                return NoContent();
             }
-            return NoContent();
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
         }
     }
 }

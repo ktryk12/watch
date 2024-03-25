@@ -8,7 +8,8 @@ namespace ShiftChangeMicroservice.Serviceslag
     {
         Task<IEnumerable<ShiftChangeRequestDto>> GetAllShiftChangeRequestsAsync();
         Task<ShiftChangeRequestDto> GetShiftChangeRequestByIdAsync(int id);
-        Task<ShiftChangeRequestDto> CreateShiftChangeRequestAsync(ShiftChangeRequestDto shiftChangeRequestDto);
+        Task<IEnumerable<ShiftChangeRequestDto>> GetShiftChangeRequestByEmployeeIdAsync(string employeeId);
+        Task<ShiftChangeRequestDto> CreateShiftChangeRequestAsync(CreateShiftChangeRequestDto createShiftChangeRequestDto);
         Task<ShiftChangeRequestDto> UpdateShiftChangeRequestAsync(int id, ShiftChangeRequestDto shiftChangeRequestDto);
         Task<bool> DeleteShiftChangeRequestAsync(int id);
     }

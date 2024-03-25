@@ -10,7 +10,7 @@ namespace ShiftChangeMicroservice.Modellayer
         public ServiceContext CreateDbContext(string[] args)
         {
                 var optionsBuilder = new DbContextOptionsBuilder<ServiceContext>();
-                optionsBuilder.UseSqlServer("Server=localhost;Database=ShiftChangeService;User Id=sa;Password=Sommer2023;TrustServerCertificate=true;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=ShiftChangeService;Integrated Security=True;TrustServerCertificate=true;");
 
                 return new ServiceContext(optionsBuilder.Options, null);
         }

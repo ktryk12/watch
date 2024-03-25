@@ -10,7 +10,7 @@ namespace UserMicroservice.DtoConverter
             return new UserDto
             {
                 Id = entity.Id,
-                Username = entity.Username,
+                EmployeeId = entity.EmployeeId,
                 Name = entity.Name,
                 Email = entity.Email,
                 Role = entity.Role
@@ -23,7 +23,7 @@ namespace UserMicroservice.DtoConverter
             return new User
             {
                 Id= dto.Id,
-                Username = dto.Username,
+                EmployeeId = dto.EmployeeId,
                 Name = dto.Name,
                 Email = dto.Email,
                 Role = dto.Role
@@ -35,7 +35,7 @@ namespace UserMicroservice.DtoConverter
         {
             return new User
             {
-                Username = dto.Username,
+                EmployeeId = dto.EmployeeId,
                 Name = dto.Name,
                 Email = dto.Email,
                 Role = dto.Role

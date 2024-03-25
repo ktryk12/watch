@@ -12,15 +12,15 @@ using TimeRecordingMicroservice.Modellayer;
 namespace TimeRecordingMicroservice.Migrations
 {
     [DbContext(typeof(ServiceContext))]
-    [Migration("20240204102304_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240316175107_newId")]
+    partial class newId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.15")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -39,16 +39,16 @@ namespace TimeRecordingMicroservice.Migrations
                     b.Property<DateTime>("CheckOutTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
                     b.Property<double>("OvertimeHours")
                         .HasColumnType("float");
 
                     b.Property<double>("TotalWorkHours")
                         .HasColumnType("float");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
 
                     b.HasKey("TimeRegistrationId");
 

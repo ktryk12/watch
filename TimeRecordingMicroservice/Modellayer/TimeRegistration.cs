@@ -11,8 +11,7 @@ namespace TimeRecordingMicroservice.Modellayer
         // Brugernavn, der refererer til en ansat
         [Required]
         [StringLength(4, MinimumLength = 4)]
-        public string Username { get; set; }
-
+        public string EmployeeId { get; set; }
         public DateTime CheckInTime { get; set; }
         public DateTime CheckOutTime { get; set; }
 

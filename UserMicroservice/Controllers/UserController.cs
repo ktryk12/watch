@@ -24,7 +24,7 @@ namespace UserMicroservice.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var token = await _authService.Login(request.Username, request.Password);
+            var token = await _authService.Login(request.EmployeeId, request.Password);
             if (token != null)
             {
                 return Ok(new { token = token });
@@ -34,7 +34,7 @@ namespace UserMicroservice.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<NewUserDto>> CreateUser([FromBody] NewUserDto newUserDto)
         {
             var createdUserDto = await _userService.CreateUserAsync(newUserDto);
@@ -43,7 +43,7 @@ namespace UserMicroservice.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
@@ -76,7 +76,7 @@ namespace UserMicroservice.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             await _userService.DeleteUserAsync(id);

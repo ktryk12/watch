@@ -6,9 +6,10 @@ namespace ShiftScheduleMicroService.Serviceslag
 {
     public interface IShiftScheduleService
     {
-        Task<ShiftScheduleDto> AddShiftScheduleAsync(ShiftScheduleDto shiftScheduleDto);
+        Task<ShiftScheduleDto> AddShiftScheduleAsync(CreateShiftScheduleDto createDto);
         Task<ShiftScheduleDto> GetShiftScheduleByIdAsync(int id);
         Task<IEnumerable<ShiftScheduleDto>> GetAllShiftSchedulesAsync();
+        Task<IEnumerable<ShiftScheduleDto>> GetShiftSchedulesByEmployeeIdAsync(string employeeId);
         Task<ShiftScheduleDto> UpdateShiftScheduleAsync(ShiftScheduleDto shiftScheduleDto);
         Task<bool> DeleteShiftScheduleAsync(int id);
     }

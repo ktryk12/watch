@@ -13,7 +13,8 @@ namespace Reporting_Microservice.Dal
         {
             _context = context;
         }
-
+        
+            
         public async Task<IEnumerable<Reporting>> GetAllReportsAsync()
         {
             return await _context.Reporting.ToListAsync();
@@ -23,12 +24,20 @@ namespace Reporting_Microservice.Dal
         {
             return await _context.Reporting.FirstOrDefaultAsync(r => r.ReportId == reportId);
         }
-
-        public async Task AddReportAsync(Reporting report)
+        public async Task<IEnumerable<Reporting>> GetReportingByEmployeeIdAsync(string employeeId)
         {
-            await _context.Reporting.AddAsync(report);
-            await _context.SaveChangesAsync();
+            return await _context.Reporting
+                                 .Where(s => s.EmployeeId == employeeId)
+                                 .ToListAsync();
         }
+
+        public async Task<Reporting> AddReportAsync(Reporting report)
+        {
+            var result = await _context.Reporting.AddAsync(report);
+            await _context.SaveChangesAsync();
+            return result.Entity; // Returnerer den tilføjede 'Reporting' instans, inklusiv dens genererede 'ReportId'
+        }
+
 
         public async Task UpdateReportAsync(Reporting report)
         {

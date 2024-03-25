@@ -9,7 +9,7 @@ namespace UserMicroservice.ModelLayer
         public ServiceContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ServiceContext>();
-            optionsBuilder.UseSqlServer("Server=localhost;Database=UserService;User Id=sa;Password=Sommer2023;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=UserService;Integrated Security=True;TrustServerCertificate=true;");
 
             return new ServiceContext(optionsBuilder.Options, null);
         }

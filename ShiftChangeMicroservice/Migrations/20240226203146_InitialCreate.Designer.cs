@@ -11,7 +11,7 @@ using ShiftChangeMicroservice.Modellayer;
 namespace ShiftChangeMicroservice.Migrations
 {
     [DbContext(typeof(ServiceContext))]
-    [Migration("20240203204009_InitialCreate")]
+    [Migration("20240226203146_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace ShiftChangeMicroservice.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.15")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

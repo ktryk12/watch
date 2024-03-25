@@ -4,12 +4,13 @@ using TimeRecordingMicroservice.Serviceslag;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace TimeRecordingMicroservice.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize] // Dette sikrer, at alle endpoints kræver autentifikation generelt.
     public class TimeRegistrationController : ControllerBase
     {
         private readonly ITimeService _timeService;
@@ -19,16 +20,18 @@ namespace TimeRecordingMicroservice.Controllers
             _timeService = timeService;
         }
 
+        // Tillad kun Admin at tilføje nye tidsregistreringer
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin,Medarbejder")]
         public async Task<ActionResult<TimeRegistrationDto>> AddTimeRegistration([FromBody] TimeRegistrationDto dto)
         {
             var addedTimeRegistration = await _timeService.AddTimeRegistrationAsync(dto);
             return CreatedAtAction(nameof(GetTimeRegistrationById), new { id = addedTimeRegistration.TimeRegistrationId }, addedTimeRegistration);
         }
 
+        // Tillad både Admin og Medarbejder at se en specifik tidsregistrering
         [HttpGet("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Medarbejder")]
         public async Task<ActionResult<TimeRegistrationDto>> GetTimeRegistrationById(int id)
         {
             var timeRegistration = await _timeService.GetTimeRegistrationByIdAsync(id);
@@ -39,16 +42,18 @@ namespace TimeRecordingMicroservice.Controllers
             return Ok(timeRegistration);
         }
 
+        // Tillad både Admin og Medarbejder at se alle tidsregistreringer
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin,Medarbejder")]
         public async Task<ActionResult<IEnumerable<TimeRegistrationDto>>> GetAllTimeRegistrations()
         {
             var timeRegistrations = await _timeService.GetAllTimeRegistrationsAsync();
             return Ok(timeRegistrations);
         }
 
+        // Tillad kun Admin at opdatere tidsregistreringer
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<TimeRegistrationDto>> UpdateTimeRegistration(int id, [FromBody] TimeRegistrationDto dto)
         {
             if (id != dto.TimeRegistrationId)
@@ -59,8 +64,9 @@ namespace TimeRecordingMicroservice.Controllers
             return Ok(updatedTimeRegistration);
         }
 
+        // Tillad kun Admin at slette tidsregistreringer
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteTimeRegistration(int id)
         {
             var success = await _timeService.DeleteTimeRegistrationAsync(id);
@@ -70,5 +76,27 @@ namespace TimeRecordingMicroservice.Controllers
             }
             return NoContent();
         }
+        [HttpGet("employee/{employeeId}")]
+        [Authorize(Roles = "Admin,Medarbejder")] // Sikrer, at kun autoriserede roller kan tilgå endpointet.
+        public async Task<ActionResult<IEnumerable<TimeRegistrationDto>>> GetTimeRegistrationsByEmployeeId(string employeeId)
+        {
+            // Tjekker, om den aktuelt autentificerede bruger har rettigheder til at se data for den angivne ansat.
+            // Dette kan indebære at sammenligne employeeId med den autentificerede brugers ID eller tjekke for en Admin-rolle.
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUserRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            if (employeeId != currentUserId && currentUserRole != "Admin")
+            {
+                return Forbid(); // Eller returner en passende fejlkode.
+            }
+
+            var timeRegistrations = await _timeService.GetTimeRegistrationsByEmployeeIdAsync(employeeId);
+            if (timeRegistrations == null || !timeRegistrations.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(timeRegistrations);
+        }
+
     }
 }

@@ -27,12 +27,18 @@ namespace Reporting_Microservice.Serviceslag
             var report = await _reportingData.GetReportByIdAsync(reportId);
             return report != null ? ReportingConverter.ToDto(report) : null;
         }
-
-        public async Task CreateReportAsync(ReportingDto reportDto) // Opdateret til CreateReportAsync
+        public async Task<IEnumerable<ReportingDto>> GetReportsByEmployeeIdAsync(string employeeId)
         {
-            var report = ReportingConverter.FromDtoForCreation(reportDto);
-            await _reportingData.AddReportAsync(report); // Bemærk: Her kalder vi stadig AddReportAsync på dataadgangslaget
+            var Reportings = await _reportingData.GetReportingByEmployeeIdAsync(employeeId);
+            return Reportings.Select(ReportingConverter.ToDto);
         }
+        public async Task<int> CreateReportAsync(CreateReportingDto createReportDto)
+        {
+            var report = ReportingConverter.ToEntityForCreation(createReportDto);
+            await _reportingData.AddReportAsync(report); // Efter denne linje, vil report.Id være sat.
+            return report.ReportId; // Returner ID'et for den nyoprettede rapport.
+        }
+
 
         public async Task UpdateReportAsync(int reportId, ReportingDto reportDto)
         {

@@ -17,12 +17,12 @@ namespace UserMicroservice.ServiceLayer
             _userData = userData;
         }
 
-        public async Task<string> Login(string username, string password) 
+        public async Task<string> Login(string employeeId, string password) 
         {
-            var user = await _userData.GetByUsernameAsync(username); // Brug await for at afvente resultatet
+            var user = await _userData.GetByEmployeeIdAsync(employeeId); // Brug await for at afvente resultatet
             if (user != null && _passwordService.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
-                return _tokenService.GenerateToken(username);
+                return _tokenService.GenerateToken(employeeId, user.Role);
             }
 
             return null; // Eller kast en exception, hvis brugervalideringen fejler

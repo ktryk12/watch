@@ -15,7 +15,7 @@ namespace TimeRecordingMicroservice.DtoConverter
             return new TimeRegistrationDto
             {
                 TimeRegistrationId = entity.TimeRegistrationId,
-                Username = entity.Username,
+                EmployeeId = entity.EmployeeId,
                 CheckInTime = entity.CheckInTime,
                 CheckOutTime = entity.CheckOutTime,
                 TotalWorkHours = totalWorkHours,
@@ -31,7 +31,7 @@ namespace TimeRecordingMicroservice.DtoConverter
             return new TimeRegistration
             {
                 TimeRegistrationId = dto.TimeRegistrationId,
-                Username = dto.Username,
+                EmployeeId = dto.EmployeeId,
                 CheckInTime = dto.CheckInTime,
                 CheckOutTime = dto.CheckOutTime,
                 // Omit TotalWorkHours and OvertimeHours since they are calculated fields

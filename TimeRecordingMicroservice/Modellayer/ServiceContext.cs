@@ -23,7 +23,7 @@ public class ServiceContext : DbContext, IServiceContext
             {
                 optionsBuilder
                     .UseLoggerFactory(_loggerFactory)
-                    .UseSqlServer("Server=localhost;Database=TimeRegistrationService;User Id=sa;Password=Sommer2023;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
+                    .UseSqlServer("Server=localhost;Database=TimeRegistrationService;Integrated Security=True;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
             }
         }
 

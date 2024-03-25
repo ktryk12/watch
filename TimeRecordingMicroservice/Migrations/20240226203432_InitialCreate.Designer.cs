@@ -5,57 +5,54 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ShiftScheduleMicroService.Modellayer;
+using TimeRecordingMicroservice.Modellayer;
 
 #nullable disable
 
-namespace ShiftScheduleMicroService.Migrations
+namespace TimeRecordingMicroservice.Migrations
 {
     [DbContext(typeof(ServiceContext))]
-    [Migration("20240223090840_newDb")]
-    partial class newDb
+    [Migration("20240226203432_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.15")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ShiftScheduleMicroService.Modellayer.ShiftSchedule", b =>
+            modelBuilder.Entity("TimeRecordingMicroservice.Modellayer.TimeRegistration", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("TimeRegistrationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TimeRegistrationId"));
 
-                    b.Property<TimeSpan>("BreakTime")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("CheckInTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EmployeeId")
+                    b.Property<DateTime>("CheckOutTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("OvertimeHours")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalWorkHours")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("TimeRegistrationId");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ShiftSchedule");
+                    b.ToTable("TimeRegistration");
                 });
 #pragma warning restore 612, 618
         }

@@ -35,7 +35,11 @@ namespace TimeRecordingMicroservice.Serviceslag
             var timeRegistrations = await _timeRegistrationData.GetAllTimeRegistrationsAsync();
             return timeRegistrations.Select(TimeRegistrationsConverter.ToDto);
         }
-
+        public async Task<IEnumerable<TimeRegistrationDto>> GetTimeRegistrationsByEmployeeIdAsync(string employeeId)
+        {
+            var timeRegrations = await _timeRegistrationData.GetTimeRegistrationsByEmployeeIdAsync(employeeId);
+            return timeRegrations.Select(TimeRegistrationsConverter.ToDto);
+        }
         public async Task<TimeRegistrationDto> UpdateTimeRegistrationAsync(TimeRegistrationDto dto)
         {
             var timeRegistration = TimeRegistrationsConverter.ToEntity(dto);

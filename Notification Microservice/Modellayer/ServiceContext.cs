@@ -22,7 +22,7 @@ namespace Notification_Microservice.Modellayer
             {
                 optionsBuilder
                     .UseLoggerFactory(_loggerFactory)
-                    .UseSqlServer("Server=localhost;Database=NotificationService;User Id=sa;Password=Sommer2023;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
+                    .UseSqlServer("Server=localhost;Database=NotificationService;Integrated Security=True;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
             }
         }
 

@@ -11,6 +11,7 @@ namespace ShiftScheduleMicroService.Dal
         Task<ShiftSchedule> GetShiftScheduleByIdAsync(int id);
         Task<IEnumerable<ShiftSchedule>> GetAllShiftSchedulesAsync();
         Task<ShiftSchedule> UpdateShiftScheduleAsync(ShiftSchedule shiftSchedule);
+        Task<IEnumerable<ShiftSchedule>> GetShiftSchedulesByEmployeeIdAsync(string employeeId);
         Task<bool> DeleteShiftScheduleAsync(int id);
     }
 }

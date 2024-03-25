@@ -17,16 +17,6 @@ namespace Reporting_Microservice.DtoConverter
             };
         }
 
-        // Opretter en ny Reporting entitet fra DTO (uden ReportId) til brug ved oprettelse
-        public static Reporting FromDtoForCreation(ReportingDto reportingDto)
-        {
-            return new Reporting
-            {
-                Period = reportingDto.Period,
-                Type = reportingDto.Type,
-                EmployeeId = reportingDto.EmployeeId
-            };
-        }
 
         // Opdaterer en eksisterende Reporting entitet fra DTO (inklusiv ReportId) til brug ved opdatering
         public static Reporting FromDtoForUpdate(int reportId, ReportingDto reportingDto)
@@ -37,6 +27,17 @@ namespace Reporting_Microservice.DtoConverter
                 Period = reportingDto.Period,
                 Type = reportingDto.Type,
                 EmployeeId = reportingDto.EmployeeId
+            };
+        }
+
+        // Opretter en ny Reporting entitet fra DTO (uden ReportId) til brug ved oprettelse
+        public static Reporting ToEntityForCreation(CreateReportingDto dto)
+        {
+            return new Reporting
+            {
+                Period = dto.Period,
+                Type = dto.Type,
+                EmployeeId = dto.EmployeeId
             };
         }
     }

@@ -30,12 +30,12 @@ namespace Notification_Microservice.DtoConverter
         }
 
         // Tilføjet: Specifik metode til at håndtere oprettelse fra DTO
-        public static Notification FromDtoForCreation(NotificationDto notificationDto)
+        public static Notification ToEntityForCreation(CreateNotificationDto dto)
         {
             return new Notification
             {
-                EmployeeId = notificationDto.EmployeeId,
-                Message = notificationDto.Message,
+                EmployeeId = dto.EmployeeId,
+                Message = dto.Message,
                 SentTime = DateTime.UtcNow, // Sætter sendetiden til nuværende tidspunkt ved oprettelse
                 IsRead = false // Antager at en ny notifikation ikke er læst
             };

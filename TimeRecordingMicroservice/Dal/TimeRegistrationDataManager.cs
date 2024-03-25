@@ -52,5 +52,12 @@ namespace TimeRecordingMicroservice.Dal
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<IEnumerable<TimeRegistration>> GetTimeRegistrationsByEmployeeIdAsync(string employeeId)
+        {
+            return await _context.TimeRegistration
+                                .Where(s => s.EmployeeId == employeeId)
+                                .ToListAsync();
+        }
     }
 }

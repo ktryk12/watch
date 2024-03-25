@@ -22,7 +22,7 @@ namespace ShiftChangeMicroservice.Modellayer
             {
                 optionsBuilder
                     .UseLoggerFactory(_loggerFactory)
-                    .UseSqlServer("Server=localhost;Database=ShiftChangeService;User Id=sa;Password=Sommer2023;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
+                    .UseSqlServer("Server=localhost;Database=ShiftChangeService;Integrated Security=True;TrustServerCertificate=true;"); // Tilføj din databaseforbindelsesstreng
             }
         }
 

@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Tilføj DbContext til containeren
 builder.Services.AddDbContext<ServiceContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(" ReportingServiceConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ReportingServiceConnection")));
 
 // Registrer DAL og service lag interfaces med deres implementeringer
 builder.Services.AddScoped< IReportingData, ReportingDataManager>();

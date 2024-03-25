@@ -32,5 +32,19 @@ namespace ShiftScheduleMicroService.DtoConverter
                 Status = dto.Status
             };
         }
+        public static ShiftSchedule ToEntity(CreateShiftScheduleDto dto)
+        {
+            return new ShiftSchedule
+            {
+                // Ingen Id, da det genereres af databasen
+                Date = dto.Date,
+                StartTime = dto.StartTime,
+                EndTime = dto.EndTime,
+                BreakTime = dto.BreakTime,
+                EmployeeId = dto.EmployeeId,
+                Status = dto.Status
+            };
+        }
+
     }
 }

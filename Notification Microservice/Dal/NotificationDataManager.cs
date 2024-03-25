@@ -25,11 +25,18 @@ namespace Notification_Microservice.Dal
             return await _context.Notification
                 .FirstOrDefaultAsync(n => n.NotificationId == notificationId);
         }
-
-        public async Task AddNotificationAsync(Notification notification)
+        public async Task<IEnumerable<Notification>> GetNotificationByEmployeeIdAsync(string employeeId)
         {
-            _context.Notification.Add(notification);
+            return await _context.Notification
+                                 .Where(s => s.EmployeeId == employeeId)
+                                 .ToListAsync();
+        }
+
+        public async Task <Notification>AddNotificationAsync(Notification notification)
+        {
+            var result = await _context.Notification.AddAsync(notification);
             await _context.SaveChangesAsync();
+            return result.Entity; 
         }
 
         public async Task UpdateNotificationAsync(Notification notification)

@@ -8,7 +8,8 @@ namespace Reporting_Microservice.Serviceslag
     {
         Task<IEnumerable<ReportingDto>> GetAllReportsAsync();
         Task<ReportingDto> GetReportByIdAsync(int reportId);
-        Task CreateReportAsync(ReportingDto reportDto);
+        Task<IEnumerable<ReportingDto>> GetReportsByEmployeeIdAsync(string employeeId);
+        Task<int> CreateReportAsync(CreateReportingDto createReportDto);
         Task UpdateReportAsync(int reportId, ReportingDto reportDto);
         Task DeleteReportAsync(int reportId);
     }

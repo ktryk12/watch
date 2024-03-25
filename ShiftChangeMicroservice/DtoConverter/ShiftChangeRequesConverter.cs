@@ -31,7 +31,7 @@ namespace ShiftChangeMicroservice.DtoConverter
         }
 
         // Tilføjet: Specifik metode til at håndtere oprettelse fra DTO uden ID
-        public static ShiftChangeRequest ToEntityForCreation(ShiftChangeRequestDto dto)
+        public static ShiftChangeRequest ToEntityForCreation(CreateShiftChangeRequestDto dto)
         {
             return new ShiftChangeRequest
             {

@@ -38,9 +38,9 @@ namespace UserMicroservice.Dal
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-        public async Task<User> GetByUsernameAsync(string username)
+        public async Task<User> GetByEmployeeIdAsync(string employeeId)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            return await _context.Users.FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
         }
         public async Task DeleteAsync(int id)
         {

@@ -8,7 +8,8 @@ namespace Notification_Microservice.Dal
     {
         Task<IEnumerable<Notification>> GetAllNotificationsAsync();
         Task<Notification> GetNotificationByIdAsync(int notificationId);
-        Task AddNotificationAsync(Notification notification);
+        Task<IEnumerable<Notification>> GetNotificationByEmployeeIdAsync(string employeeId);
+        Task<Notification> AddNotificationAsync(Notification notification);
         Task UpdateNotificationAsync(Notification notification);
         Task DeleteNotificationAsync(int notificationId);
     }
